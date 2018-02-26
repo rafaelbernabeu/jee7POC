@@ -17,6 +17,9 @@ public class Scheduler {
 
     @EJB
     private CounterBean counter;
+    
+    @Resource(lookup = "java:jboss/ee/concurrency/executor/default")
+    private ManagedExecutorService managedExecutorService;
 
     @PostConstruct
     public void init() {

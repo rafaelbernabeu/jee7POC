@@ -1,14 +1,12 @@
 package ejb;
 
-import ejb.statefull.CounterBean;
-import ejb.util.ThreadExecutor;
-
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.*;
+import javax.enterprise.concurrent.ManagedExecutorService;
+import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import java.time.ZonedDateTime;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Startup
@@ -16,25 +14,27 @@ import java.util.concurrent.TimeUnit;
 public class Scheduler {
 
     @EJB
-    private CounterBean counter;
+    private ejb.stateless.tasks.ExampleTask task;
     
-    @Resource(lookup = "java:jboss/ee/concurrency/executor/default")
-    private ManagedExecutorService managedExecutorService;
+    @Resource(lookup = "java:comp/DefaultManagedScheduledExecutorService")
+    private ManagedScheduledExecutorService scheduledExecutorService;
+
+    @Resource(lookup = "java:comp/DefaultManagedExecutorService")
+    private ManagedExecutorService executorService;
 
     @PostConstruct
     public void init() {
-        ScheduledExecutorService scheduledExecutor = ThreadExecutor.getScheduledInstance();
-        scheduledExecutor.scheduleWithFixedDelay(() -> System.out.println("Scheduled execution..."), 0, 5, TimeUnit.MINUTES);
+        scheduledExecutorService.scheduleWithFixedDelay(() -> System.out.println("Scheduled execution..."), 1, 5, TimeUnit.SECONDS);
+        executorService.execute(() -> System.out.println("Tasks started."));
     }
 
     @Schedule(second = "*/5", minute="*", hour="*")
     public void timeout1(Timer timer) {
-        System.out.println("Counter is: " + counter.count());
+        task.run();
     }
 
     @Schedule(second = "*/10", minute="*", hour="*")
     public void timeout2(Timer timer) {
-        ExecutorService executorService = ThreadExecutor.getInstance();
         executorService.execute(() -> System.out.println("Runnable... without return value."));
         Future<ZonedDateTime> future = executorService.submit(() -> {
             System.out.println("Callable...with a return value.");

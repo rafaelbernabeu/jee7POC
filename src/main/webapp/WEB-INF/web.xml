@@ -4,6 +4,12 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <module-name>ejb3.2POC</module-name>
+    <module-name>jee7POC</module-name>
+
+    <context-param>
+        <param-name>resteasy.resources</param-name>
+        <param-value>org.jboss.resteasy.plugins.stats.RegistryStatsResource</param-value>
+    </context-param>
+
 </web-app>
 

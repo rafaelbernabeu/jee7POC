@@ -1,4 +1,4 @@
-# ejb3.2POC
+# jee7POC
 Projeto demonstra a utilização da tecnologia EJB 3.2
 
 web.xml: The web application's deployment descriptor, which is used to configure certain aspects of a web application when it is installed.

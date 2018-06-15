@@ -1,8 +1,14 @@
 package ejb;
 
+import ejb.stateless.tasks.ExampleTask;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Schedule;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.ejb.Timer;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import java.time.ZonedDateTime;
@@ -14,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class Scheduler {
 
     @EJB
-    private ejb.stateless.tasks.ExampleTask task;
+    private ExampleTask task;
     
     @Resource(lookup = "java:comp/DefaultManagedScheduledExecutorService")
     private ManagedScheduledExecutorService scheduledExecutorService;

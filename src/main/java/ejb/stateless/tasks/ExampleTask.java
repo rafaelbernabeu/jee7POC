@@ -1,5 +1,7 @@
 package ejb.stateless.tasks;
 
+import ejb.statefull.CounterBean;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.TimerTask;
@@ -8,7 +10,7 @@ import java.util.TimerTask;
 public class ExampleTask extends TimerTask {
 
     @EJB
-    private ejb.statefull.CounterBean counter;
+    private CounterBean counter;
 
     @Override
     public void run() {

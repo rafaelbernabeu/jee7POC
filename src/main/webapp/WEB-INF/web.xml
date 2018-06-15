@@ -10,6 +10,7 @@
         <param-name>resteasy.resources</param-name>
         <param-value>org.jboss.resteasy.plugins.stats.RegistryStatsResource</param-value>
     </context-param>
+    <!--http://localhost:8080/jee7POC/resteasy/registry-->
 
 </web-app>
 

@@ -1,5 +1,7 @@
 package jpa.entities;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+@Data
 @Entity
 @Table(name = "Note")
 public class Note {
@@ -23,35 +26,4 @@ public class Note {
     @Column(name = "text", length = 1000)
     private String text;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public String toString() {
-        return "Note{" +
-                "title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                '}';
-    }
 }

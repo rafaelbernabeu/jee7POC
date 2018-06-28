@@ -5,7 +5,6 @@ import ejb.stateless.tasks.ExampleTask;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
@@ -34,12 +33,12 @@ public class Scheduler {
         executorService.execute(() -> System.out.println("Tasks started."));
     }
 
-    @Schedule(second = "*/5", minute="*", hour="*")
+//    @Schedule(second = "*/5", minute="*", hour="*")
     public void timeout1(Timer timer) {
         task.run();
     }
 
-    @Schedule(second = "*/10", minute="*", hour="*")
+//    @Schedule(second = "*/10", minute="*", hour="*")
     public void timeout2(Timer timer) {
         executorService.execute(() -> System.out.println("Runnable... without return value."));
         Future<ZonedDateTime> future = executorService.submit(() -> {

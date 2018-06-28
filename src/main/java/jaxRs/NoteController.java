@@ -1,7 +1,7 @@
 package jaxRs;
 
 import jpa.entities.Note;
-import jpa.service.NoteRepositoryH2;
+import jpa.service.NoteRepository;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -15,17 +15,18 @@ import javax.ws.rs.Produces;
 public class NoteController {
 
     @EJB
-    private NoteRepositoryH2 noteRepositoryH2;
+    private NoteRepository noteRepository;
 
     @GET
     public String listNotes() {
-        return noteRepositoryH2.getAllEntities().toString();
+        noteRepository.save("Rafael","Bernabeu");
+        return noteRepository.getAllEntities().toString();
     }
 
     @POST
     @Consumes("application/json")
     public String saveNewNote(Note note) {
-        noteRepositoryH2.saveNewNote(note);
-        return noteRepositoryH2.getAllEntities().toString();
+        noteRepository.save(note);
+        return noteRepository.getAllEntities().toString();
     }
 }
